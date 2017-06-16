@@ -1,0 +1,75 @@
+﻿[2017-06-16 11:20:33] Loaded 9 apps from install folder "D:\SteamLibrary\steamapps\appmanifest_*.acf".
+[2017-06-16 11:20:47] Scheduler update appID 255710: Priority Last, legacy=no, restore="", timeSinceLastPlayed=4017363, appDisableSecondsRemaining=0
+[2017-06-16 11:20:49] AppID 255710 update changed : Running,
+[2017-06-16 11:20:49] AppID 255710 update changed : Running,Reconfiguring,
+[2017-06-16 11:20:50] Skipping download source as it does not allow AppID 255710: (CDN,21) - telecom.dota2.wmsj.cn (telecom.dota2.wmsj.cn)
+[2017-06-16 11:20:50] Skipping download source as it does not allow AppID 255710: (CDN,374471188) - telecom.csgo.wmsj.cn (telecom.csgo.wmsj.cn)
+[2017-06-16 11:20:50] Created download interface of type 'CDN' (2) to host cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com)
+[2017-06-16 11:20:50] Created download interface of type 'CDN' (2) to host cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com)
+[2017-06-16 11:20:50] Created download interface of type 'CDN' (2) to host cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com)
+[2017-06-16 11:20:50] HTTP (CDN,19) - cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com): AuthenticateDepotID (255710) - Success!
+[2017-06-16 11:20:50] HTTP (CDN,19) - cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com): cdn.mileweb.cs.steampowered.com.8686c.com/depot/255710/manifest/4098598899967396710/5? - received 200 (OK) HTTP response
+[2017-06-16 11:20:50] AppID 255710 update changed : Running,
+[2017-06-16 11:20:50] AppID 255710 update changed : Running,Preallocating,
+[2017-06-16 11:20:50] AppID 255710 update changed : Running,
+[2017-06-16 11:20:50] AppID 255710 update started : download 0/69440, store 0/0, reuse 0/0, stage 0/197120
+[2017-06-16 11:20:50] AppID 255710 update changed : Running,Downloading,
+[2017-06-16 11:20:50] AppID 255710 update changed : Running,Downloading,Staging,
+[2017-06-16 11:20:50] Downloading 1 chunks from depot 255710
+[2017-06-16 11:20:50] HTTP (CDN,19) - cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com): AuthenticateDepotID (255710) - Success!
+[2017-06-16 11:20:51] AppID 255710 update changed : Running,
+[2017-06-16 11:20:51] AppID 255710 update changed : Running,Committing,
+[2017-06-16 11:20:51] AppID 255710 file commit : 1 updated, 0 moved, 0 deleted
+[2017-06-16 11:20:51] AppID 255710 update changed : Running,
+[2017-06-16 11:20:51] AppID 255710 update changed : None
+[2017-06-16 11:20:51] AppID 255710 scheduler finished : removed from schedule
+[2017-06-16 11:21:50] HTTP (CDN,19) - cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com): Closing connection
+[2017-06-16 11:21:50] HTTP (CDN,19) - cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com): Closing connection
+[2017-06-16 11:21:50] HTTP (CDN,19) - cdn.mileweb.cs.steampowered.com.8686c.com (cdn.mileweb.cs.steampowered.com.8686c.com): Closing connection
+[2017-06-16 11:22:52] App 551110 updates disabled for 0 seconds (until Fri Jun 16 11:22:52 2017)
+[2017-06-16 11:22:52] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 11:23:18] AppID 551110 state changed : Fully Installed,
+[2017-06-16 11:52:54] App 730 updates disabled for 0 seconds (until Fri Jun 16 11:52:54 2017)
+[2017-06-16 11:52:54] AppID 730 state changed : Fully Installed,App Running,
+[2017-06-16 11:53:10] App 730 updates now enabled
+[2017-06-16 11:53:15] AppID 730 state changed : Fully Installed,
+[2017-06-16 12:13:10] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:13:10 2017)
+[2017-06-16 12:13:10] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 12:13:20] AppID 551110 state changed : Fully Installed,
+[2017-06-16 12:23:52] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:23:52 2017)
+[2017-06-16 12:24:00] AppID 551110 state changed : Fully Installed,
+[2017-06-16 12:29:56] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:29:56 2017)
+[2017-06-16 12:29:56] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 12:30:04] AppID 551110 state changed : Fully Installed,
+[2017-06-16 12:36:16] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:36:16 2017)
+[2017-06-16 12:36:16] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 12:36:24] AppID 551110 state changed : Fully Installed,
+[2017-06-16 12:38:47] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:38:47 2017)
+[2017-06-16 12:38:47] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 12:38:56] AppID 551110 state changed : Fully Installed,
+[2017-06-16 12:44:50] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:44:50 2017)
+[2017-06-16 12:44:50] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 12:45:00] AppID 551110 state changed : Fully Installed,
+[2017-06-16 12:48:57] App 551110 updates disabled for 0 seconds (until Fri Jun 16 12:48:57 2017)
+[2017-06-16 12:48:57] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 12:49:06] AppID 551110 state changed : Fully Installed,
+[2017-06-16 14:59:48] App 551110 updates disabled for 0 seconds (until Fri Jun 16 14:59:48 2017)
+[2017-06-16 14:59:48] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 14:59:56] AppID 551110 state changed : Fully Installed,
+[2017-06-16 16:09:40] App 551110 updates disabled for 0 seconds (until Fri Jun 16 16:09:40 2017)
+[2017-06-16 16:09:48] AppID 551110 state changed : Fully Installed,
+[2017-06-16 16:10:18] App 551110 updates disabled for 0 seconds (until Fri Jun 16 16:10:18 2017)
+[2017-06-16 16:10:18] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 16:10:27] AppID 551110 state changed : Fully Installed,
+[2017-06-16 16:11:04] App 551110 updates disabled for 0 seconds (until Fri Jun 16 16:11:04 2017)
+[2017-06-16 16:11:04] AppID 551110 state changed : Fully Installed,App Running,
+[2017-06-16 16:11:12] AppID 551110 state changed : Fully Installed,
+[2017-06-16 16:12:54] App 487430 updates disabled for 0 seconds (until Fri Jun 16 16:12:54 2017)
+[2017-06-16 16:12:54] AppID 487430 state changed : Fully Installed,App Running,
+[2017-06-16 16:13:06] AppID 487430 state changed : Fully Installed,
+
+
+[2017-06-16 16:14:24] Loaded 2 apps from install folder "C:\Program Files (x86)\Steam\steamapps\appmanifest_*.acf".
+[2017-06-16 16:14:24] Loaded 9 apps from install folder "D:\SteamLibrary\steamapps\appmanifest_*.acf".
+[2017-06-16 18:44:39] User owns DLC 254260, but not matching content depot 254261
+[2017-06-16 21:19:30] User owns DLC 254260, but not matching content depot 254261
