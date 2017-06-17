@@ -1,4 +1,4 @@
-# SteamCallback ![](https://travis-ci.org/peterjc123/SteamCallback.svg?branch=master)
+# SteamCallback [![Build Status](https://travis-ci.org/peterjc123/SteamCallback.svg?branch=master)](https://travis-ci.org/peterjc123/SteamCallback)
 ## Introduction
 It is a library written in C# to provide developers with callbacks when games start or finish updating or running.
 
