@@ -103,8 +103,7 @@ namespace SteamCallback
 
         private static string ParseRegex(string source, string pattern)
         {
-            string pat = @"\[(.*)\]";
-            var m = Regex.Match(source, pat);
+            var m = Regex.Match(source, pattern);
 
             if (m.Length == 0)
             {
@@ -117,8 +116,7 @@ namespace SteamCallback
 
         private static T ParseRegexEx<T>(string source, string pattern, Func<string, T> func)
         {
-            string pat = @"\[(.*)\]";
-            var m = Regex.Match(source, pat);
+            var m = Regex.Match(source, pattern);
 
             if (m.Length == 0)
             {
