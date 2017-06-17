@@ -5,6 +5,8 @@ using System.Threading.Tasks.Dataflow;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.IO;
+using System.Runtime.InteropServices;
+using Microsoft.Win32;
 
 namespace SteamCallback
 {
@@ -17,6 +19,8 @@ namespace SteamCallback
         private static Dictionary<int, bool> updateDict = new Dictionary<int, bool>();
 
         private static DateTime startTime = DateTime.Now;
+
+        private static string steamPath;
 
         private static ActionBlock<string> processor = new ActionBlock<string>(s =>
         {
@@ -126,13 +130,31 @@ namespace SteamCallback
 
         internal static void Init()
         {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                throw new PlatformNotSupportedException();
+            }
+
+            if (steamPath == null)
+            {
+                InitSteamPath();
+            }
+
+            var steamLogPath = $"{steamPath}\\logs\\content_log.txt";
+
+            if (!File.Exists(steamLogPath))
+            {
+                var stream = File.Create(steamLogPath);
+                stream.Dispose();
+            }
+
             if (cmd == null)
             {
                 ///TODO: Add support for Linux/OSX
                 cmd = new Process();
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/c " + "tail -f \"C:\\Program Files (x86)\\Steam\\logs\\content_log.txt\"";
+                startInfo.Arguments = $"/c tail -f \"{steamLogPath}\"";
                 startInfo.WorkingDirectory = Directory.GetCurrentDirectory();
                 startInfo.UseShellExecute = false;
                 startInfo.RedirectStandardInput = true;
@@ -169,6 +191,22 @@ namespace SteamCallback
             if (e.Data != null)
             {
                 processor.Post(e.Data);
+            }
+        }
+
+        private static void InitSteamPath()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                RegistryKey Key;
+                Key = Registry.CurrentUser;
+                var myreg = Key.OpenSubKey("Software\\Valve\\Steam");
+                steamPath = myreg.GetValue("SteamPath").ToString().Replace('/', '\\');
+                myreg.Dispose();
+            }
+            else
+            {
+                throw new PlatformNotSupportedException();
             }
         }
     }

@@ -5,8 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="tail.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="tail.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tail.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
