@@ -22,125 +22,121 @@ namespace SteamCallback
 
         private static string steamPath;
 
+        private static bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
         private static ActionBlock<string> processor = new ActionBlock<string>(s =>
+            {
+                try
+                {
+                    // arguments parsing
+                    var time = ParseRegexEx(s, @"\[(.*)\]", DateTime.Parse);
+                    var appid = ParseRegexEx(s, @"AppID (\d+)", Convert.ToInt32);
+                    var type = ParseRegex(s, @"(\w+) changed");
+                    var state = ParseRegex(s, @"changed : (.*)");
+
+                    var states = state.Trim().Split(new char[] { ',' });
+
+                    HandleUpdate(time, appid, type, states);
+
+                }
+                catch (FormatException)
+                {
+                    return;
+                }
+
+            });
+
+        private static void HandleUpdate(DateTime time, int appid, string type, string[] states)
         {
-            // time parsing
-            string pat = @"\[(.*)\]";
-            var m = Regex.Match(s, pat);
-
-            if (m.Length == 0)
-            {
-                return;
-            }
-
-            var time = DateTime.Parse(m.Groups[1].Value);
-
-            // appid parsing
-            pat = @"AppID (\d+)";
-            m = Regex.Match(s, pat);
-
-            if (m.Length == 0)
-            {
-                return;
-            }
-
-            var appid = Convert.ToInt32(m.Groups[1].Value);
-
-            // update/state switch
-            pat = @"(\w+) changed";
-            m = Regex.Match(s, pat);
-
-            if (m.Length == 0)
-            {
-                return;
-            }
-
-            var type = m.Groups[1].Value;
-
-            // state string
-            pat = @"changed : (.*)";
-            m = Regex.Match(s, pat);
-
-            if (m.Length == 0)
-            {
-                return;
-            }
-
-            var state = m.Groups[1].Value;
-
-            var states = state.Trim().Split(new char[] { ',' });
-
             bool running;
             bool pre_running;
+            Action<int, DateTime> startEvent;
+            Action<int, DateTime> endEvent;
+            Dictionary<int, bool> dict;
+            string stateStr;
 
-            if (type == "update")
+
+            switch (type)
             {
-                running = states.Any(t => t == "Running");
-                if (!updateDict.ContainsKey(appid))
+                case "update":
+                    dict = updateDict;
+                    startEvent = Callbacks.TriggerAppUpdateStarted;
+                    endEvent = Callbacks.TriggerAppUpdateEnded;
+                    stateStr = "Running";
+                    break;
+
+                case "state":
+                    dict = stateDict;
+                    startEvent = Callbacks.TriggerAppStarted;
+                    endEvent = Callbacks.TriggerAppEnded;
+                    stateStr = "App Running";
+                    break;
+
+                default:
+                    return;
+            }
+
+            running = states.Any(t => t == stateStr);
+            if (!dict.ContainsKey(appid))
+            {
+                dict.Add(appid, running);
+                pre_running = false;
+            }
+            else
+            {
+                pre_running = dict[appid];
+                dict[appid] = running;
+            }
+
+            if (running != pre_running && time > startTime)
+            {
+                if (running)
                 {
-                    updateDict.Add(appid, running);
-                    pre_running = false;
+                    startEvent(appid, time);
                 }
                 else
                 {
-                    pre_running = updateDict[appid];
-                    updateDict[appid] = running;
-                }
-
-                if (running != pre_running && time > startTime)
-                {
-                    if (running)
-                    {
-                        Callbacks.TriggerAppUpdateStarted(appid, time);
-                    }
-                    else
-                    {
-                        Callbacks.TriggerAppUpdateEnded(appid, time);
-                    }
+                    endEvent(appid, time);
                 }
             }
-            else if (type == "state")
+        }
+
+        private static string ParseRegex(string source, string pattern)
+        {
+            string pat = @"\[(.*)\]";
+            var m = Regex.Match(source, pat);
+
+            if (m.Length == 0)
             {
-                running = states.Any(t => t == "App Running");
-                if (!stateDict.ContainsKey(appid))
-                {
-                    stateDict.Add(appid, running);
-                    pre_running = false;
-                }
-                else
-                {
-                    pre_running = stateDict[appid];
-                    stateDict[appid] = running;
-                }
-
-                if (running != pre_running && time > startTime)
-                {
-                    if (running)
-                    {
-                        Callbacks.TriggerAppStarted(appid, time);
-                    }
-                    else
-                    {
-                        Callbacks.TriggerAppEnded(appid, time);
-                    }
-                }
+                throw new FormatException();
             }
 
-        });
+            var result = m.Groups[1].Value;
+            return result;
+        }
+
+        private static T ParseRegexEx<T>(string source, string pattern, Func<string, T> func)
+        {
+            string pat = @"\[(.*)\]";
+            var m = Regex.Match(source, pat);
+
+            if (m.Length == 0)
+            {
+                throw new FormatException();
+            }
+
+            var result = func(m.Groups[1].Value);
+            return result;
+        }
 
         internal static void Init()
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                throw new PlatformNotSupportedException();
-            }
-
             if (steamPath == null)
             {
                 InitSteamPath();
             }
 
-            var steamLogPath = $"{steamPath}\\logs\\content_log.txt";
+            var steamLogPath = isWindows ? $"{steamPath}\\logs\\content_log.txt" : $"{steamPath}/logs/content_log.txt";
 
             if (!File.Exists(steamLogPath))
             {
@@ -150,11 +146,10 @@ namespace SteamCallback
 
             if (cmd == null)
             {
-                ///TODO: Add support for Linux/OSX
                 cmd = new Process();
                 ProcessStartInfo startInfo = new ProcessStartInfo();
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = $"/c tail -f \"{steamLogPath}\"";
+                startInfo.FileName = isWindows ? "cmd.exe" : "bash";
+                startInfo.Arguments = isWindows ? $"/c tail -f \"{steamLogPath}\"" : $"-c \"tail -f {steamLogPath}\"";
                 startInfo.WorkingDirectory = Directory.GetCurrentDirectory();
                 startInfo.UseShellExecute = false;
                 startInfo.RedirectStandardInput = true;
@@ -183,6 +178,15 @@ namespace SteamCallback
             cmd.OutputDataReceived -= Data_Received;
             cmd.Exited -= Cmd_Exited;
             cmd = null;
+
+            var steamLogPath = isWindows ? $"{steamPath}\\logs\\content_log.txt" : $"{steamPath}/logs/content_log.txt";
+
+            if (!File.Exists(steamLogPath))
+            {
+                var stream = File.Create(steamLogPath);
+                stream.Dispose();
+            }
+
             Init();
         }
 
@@ -196,7 +200,7 @@ namespace SteamCallback
 
         private static void InitSteamPath()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (isWindows)
             {
                 RegistryKey Key;
                 Key = Registry.CurrentUser;
@@ -206,7 +210,7 @@ namespace SteamCallback
             }
             else
             {
-                throw new PlatformNotSupportedException();
+                steamPath = "~/.local/share/Steam";
             }
         }
     }
