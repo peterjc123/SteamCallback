@@ -1,4 +1,4 @@
-# SteamCallback [![Build Status](https://travis-ci.org/peterjc123/SteamCallback.svg?branch=master)](https://travis-ci.org/peterjc123/SteamCallback)
+# SteamCallback [![Build Status](https://travis-ci.org/peterjc123/SteamCallback.svg?branch=master)](https://travis-ci.org/peterjc123/SteamCallback) [![Build status](https://ci.appveyor.com/api/projects/status/o6q6yni4qes92hih?svg=true)](https://ci.appveyor.com/project/peterjc123/steamcallback)
 ## Introduction
 It is a library written in C# to provide developers with callbacks when games start or finish updating or running.
 
@@ -23,5 +23,5 @@ private void Callbacks_AppStarted(int appid, DateTime time)
 It's done! Just so simple. Try it if you need it.
 
 ## Future Work
-There're two more callbacks available at the time. They' re __AppUpdateStarted__ and __AppUpdateEnded__.
+There're two more callbacks available at the time. They're __AppUpdateStarted__ and __AppUpdateEnded__.
 I will try to introduce more and more callbacks using local Steam client as far as I can.
